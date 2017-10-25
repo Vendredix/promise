@@ -22,6 +22,8 @@ Extensions are based upon the work of yoshuawuyts's promise packages:
 - [promise-reduce](https://github.com/yoshuawuyts/promise-reduce)
 - [promise-some](https://github.com/yoshuawuyts/promise-some)
 
+Typings are heavily based upon [@types/bluebird](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/bluebird)
+
 ## License
 [MIT](LICENSE)
 
