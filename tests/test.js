@@ -1,5 +1,5 @@
 "use strict";
-require("../lib/index");
+require("../index");
 
 const assert = require('assert');
 

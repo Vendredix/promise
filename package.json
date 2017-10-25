@@ -2,7 +2,7 @@
   "name": "@vendredix/promise",
   "version": "0.1.0",
   "description": "Native promise extensions",
-  "main": "./lib/index.js",
+  "main": "./index.js",
   "typings": "./typings.d.ts",
   "directories": {
     "lib": "lib"
