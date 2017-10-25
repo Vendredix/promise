@@ -8,7 +8,7 @@
     "lib": "lib"
   },
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "test": "mocha ./tests"
   },
   "repository": {
     "type": "git",
@@ -25,5 +25,7 @@
     "url": "https://github.com/Vendredix/promise/issues"
   },
   "homepage": "https://github.com/Vendredix/promise#readme",
-  "devDependencies": {}
+  "devDependencies": {
+    "mocha": "^4.0.1"
+  }
 }
