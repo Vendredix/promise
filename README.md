@@ -2,7 +2,7 @@
 [![NPM version][npm-image]][npm-url]
 [![Downloads][downloads-image]][downloads-url]
 
-This module extends a `PromiseConstructor` with features similar to [`bluebird`][bluebird]
+This module extends `PromiseConstructor` with features similar to [`bluebird`][bluebird]
 
 ## Installation
 ```bash
@@ -22,7 +22,7 @@ Extensions are based upon the work of yoshuawuyts's promise packages:
 - [promise-reduce](https://github.com/yoshuawuyts/promise-reduce)
 - [promise-some](https://github.com/yoshuawuyts/promise-some)
 
-Typings are heavily based upon [@types/bluebird](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/bluebird)
+TypeScript typings are heavily based upon [@types/bluebird](https://github.com/DefinitelyTyped/DefinitelyTyped/tree/master/types/bluebird)
 
 ## License
 [MIT](LICENSE)
