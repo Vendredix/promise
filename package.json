@@ -1,0 +1,29 @@
+{
+  "name": "@vendredix/promise",
+  "version": "0.1.0",
+  "description": "Native promise extensions",
+  "main": "./lib/index.js",
+  "typings": "./typings.d.ts",
+  "directories": {
+    "lib": "lib"
+  },
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Vendredix/promise.git"
+  },
+  "keywords": [
+    "Promise",
+    "Bluebird",
+    "ES6-Promise"
+  ],
+  "author": "Vendredix",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/Vendredix/promise/issues"
+  },
+  "homepage": "https://github.com/Vendredix/promise#readme",
+  "devDependencies": {}
+}
