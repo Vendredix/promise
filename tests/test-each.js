@@ -34,6 +34,15 @@ describe('promise-each', function () {
       assert.strictEqual(result instanceof Array && result.length === 1, true, "result should be an array");
       assert.strictEqual(result[0], 1, "result values should match");
     });
+
+    it('should support non arrays', async function () {
+      const promise = Promise.each(Promise.resolve(1), (item, index, length) => 0);
+
+      assert.strictEqual(promise instanceof Promise, true, "should result with a promise");
+      const result = await promise;
+      assert.strictEqual(result instanceof Array && result.length === 1, true, "result should be an array");
+      assert.strictEqual(result[0], 1, "result values should match");
+    });
   });
 
 });
