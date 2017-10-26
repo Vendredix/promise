@@ -12,9 +12,27 @@ describe('promise-each', function () {
 
     // TODO: test rejection
   });
+
   describe('.each()', function () {
     it('should be executed for each entry', function () {
       return testEach((items, iterator) => Promise.each(items, iterator));
+    });
+
+    it('should return a promise on an empty array', async function () {
+      const promise = Promise.each([], (item, index, length) => 0);
+
+      assert.strictEqual(promise instanceof Promise, true, "should result with a promise");
+      const result = await promise;
+      assert.strictEqual(result instanceof Array && result.length === 0, true, "result should be an empty array");
+    });
+
+    it('should return a promise on a single element', async function () {
+      const promise = Promise.each([Promise.resolve(1)], (item, index, length) => 0);
+
+      assert.strictEqual(promise instanceof Promise, true, "should result with a promise");
+      const result = await promise;
+      assert.strictEqual(result instanceof Array && result.length === 1, true, "result should be an array");
+      assert.strictEqual(result[0], 1, "result values should match");
     });
   });
 
