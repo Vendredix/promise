@@ -44,13 +44,13 @@ interface PromiseConstructor {
    * *The original object is not modified.*
    */
   // trusted promise for map
-  // props<K, V>(map: PromiseLike<Map<K, PromiseLike<V> | V>>): Promise<Map<K, V>>;
-  // // trusted promise for object
-  // props<T>(object: PromiseLike<Promise.ResolvableProps<T>>): Promise<T>; // tslint:disable-line:unified-signatures
-  // // map
-  // props<K, V>(map: Map<K, PromiseLike<V> | V>): Promise<Map<K, V>>; // tslint:disable-line:unified-signatures
-  // // object
-  // props<T>(object: Promise.ResolvableProps<T>): Promise<T>; // tslint:disable-line:unified-signatures
+  props<K, V>(map: PromiseLike<Map<K, PromiseLike<V> | V>>): Promise<Map<K, V>>;
+  // trusted promise for object
+  props<T>(object: PromiseLike<PromiseExtensions.ResolvableProps<T>>): Promise<T>; // tslint:disable-line:unified-signatures
+  // map
+  props<K, V>(map: Map<K, PromiseLike<V> | V>): Promise<Map<K, V>>; // tslint:disable-line:unified-signatures
+  // object
+  props<T>(object: PromiseExtensions.ResolvableProps<T>): Promise<T>; // tslint:disable-line:unified-signatures
 
   /**
    * Like `Promise.some()`, with 1 as `count`. However, if the promise fulfills, the fulfillment value is not an array of 1 but the value directly.
@@ -270,8 +270,8 @@ interface Promise<T> {
   /**
    * Same as calling `Promise.props(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
-  // props<K, V>(this: PromiseLike<Map<K, PromiseLike<V> | V>>): Promise<Map<K, V>>;
-  // props<T>(this: PromiseLike<Promise.ResolvableProps<T>>): Promise<T>;
+  props<K, V>(this: PromiseLike<Map<K, PromiseLike<V> | V>>): Promise<Map<K, V>>;
+  props<T>(this: PromiseLike<PromiseExtensions.ResolvableProps<T>>): Promise<T>;
 
   /**
    * Same as calling `Promise.any(thisPromise)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
@@ -346,4 +346,6 @@ declare namespace PromiseExtensions {
     isResolved(): boolean;
     isRejected(): boolean;
   }
+
+  export type ResolvableProps<T> = object & { [K in keyof T]: PromiseLike<T[K]> | T[K] };
 }
