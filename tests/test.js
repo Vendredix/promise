@@ -167,12 +167,14 @@ async function testEach(eachHandler) {
   }
 
   const items = [];
+  const orgItems = [];
   for (let i = 0; i < 42; i++) {
     let val = new Constructor(i);
     if (i % 4 > 0) val = Promise.resolve(val);
     if (i % 4 > 1) val = Promise.resolve(val);
     if (i % 4 > 2) val = Promise.resolve(val);
     items.push(val);
+    orgItems.push(val);
   }
 
   let index = 0
@@ -197,9 +199,13 @@ async function testEach(eachHandler) {
 
   assert.strictEqual(index, items.length, "should have handled each item");
   assert.strictEqual(isRunning, false, "should have handled each item");
-  assert.strictEqual(result, items, "should return with original array");
 
   items.forEach((item, i) => {
-    assert.strictEqual(item, items[i], "should return with original array item" + i);
+    assert.strictEqual(item, orgItems[i], "should not have touched array of items");
+  });
+
+  result.forEach((item, i) => {
+    assert.strictEqual(item instanceof Constructor && item.nr === i, true, "should return with resolved but original array item" + i);
+    assert.strictEqual(item.called, true, "should have handled item" + i);
   });
 }
