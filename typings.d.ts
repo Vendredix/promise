@@ -116,6 +116,15 @@ interface PromiseConstructor {
    */
   // mapSeries<R, U>(values: PromiseLike<Array<PromiseLike<R> | R>> | Array<PromiseLike<R> | R>, iterator: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>): Promise<U[]>;
 
+
+  /**
+   * Conditionally checks an array, or a promise of an array, which contains promises (or a mix of promises and values) with the given `guard` function with the signature `(item, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array. If any promise in the input array is rejected the returned promise is rejected as well.
+   *
+   * The return values from the `guard` functions are coerced to booleans, with the exception of promises and thenables which are awaited for their eventual result.
+   *
+   * *The original array is not modified.
+   */
+  every<R>(values: PromiseLike<Array<PromiseLike<R> | R>> | Array<PromiseLike<R> | R>, guard: (item: R, index: number, arrayLength: number) => boolean | PromiseLike<boolean>): Promise<boolean>;
 }
 
 
@@ -151,6 +160,11 @@ interface Promise<T> {
    *
    */
   throw(reason: Error): Promise<T>;
+
+  /**
+   * Pass a handler that will be called regardless of this promise's fate. Returns a new promise chained from this promise. There are special semantics for `.finally()` in that the final value cannot be modified from the handler.
+   */
+  finally<U>(handler: () => U | PromiseLike<U>): Promise<T>;
 
   /**
    * Convenience method for:
@@ -282,12 +296,14 @@ interface Promise<T> {
    */
   // TODO type inference from array-resolving promise?
   map<Q, U>(mapper: (item: Q, index: number, arrayLength: number) => U | PromiseLike<U>): Promise<U[]>;
+  map<U>(mapper: (item: U, index: number, arrayLength: number) => U | PromiseLike<U>): Promise<U[]>;
 
   /**
    * Same as calling `Promise.reduce(thisPromise, Function reducer, initialValue)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
   // TODO type inference from array-resolving promise?
   reduce<Q, U>(reducer: (memo: U, item: Q, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U): Promise<U>;
+  reduce<U>(reducer: (memo: U, item: U, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U): Promise<U>;
 
   /**
    * Same as calling ``Promise.filter(thisPromise, filterer)``. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
@@ -310,6 +326,13 @@ interface Promise<T> {
    * Same as calling `Promise.delay(ms, this)`.
    */
   // delay(ms: number): Promise<T>;
+
+
+  /**
+   * Same as calling ``Promise.every(thisPromise, guard)``. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
+   */
+  // TODO type inference from array-resolving promise?
+  every<U>(guard: (item: U, index: number, arrayLength: number) => boolean | PromiseLike<boolean>): Promise<boolean>;
 }
 
 declare namespace PromiseExtensions {
