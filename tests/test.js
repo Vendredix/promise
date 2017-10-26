@@ -146,18 +146,26 @@ describe('Promise', function () {
   });
 
 
-  describe('#each()', function() {
-    it('should be executed for each entry', function() {
+  describe('#each()', function () {
+    it('should be executed for each entry', function () {
       return testEach((items, iterator) => Promise.resolve(items).each(iterator))
     });
 
     // TODO: test rejection
   });
-  describe('.each()', function() {
-    it('should be executed for each entry', function() {
+  describe('.each()', function () {
+    it('should be executed for each entry', function () {
       return testEach((items, iterator) => Promise.each(items, iterator));
     });
   });
+
+
+  // TODO: test every
+  // TODO: test filter
+  // TODO: test map
+  // TODO: test reduce
+  // TODO: test some
+  // TODO: test spread
 });
 
 async function testEach(eachHandler) {
