@@ -159,7 +159,7 @@ interface Promise<T> {
    * Same limitations apply as with `.return()`.
    *
    */
-  throw(reason: Error): Promise<T>;
+  throw(reason: Error): Promise<never>;
 
   /**
    * Pass a handler that will be called regardless of this promise's fate. Returns a new promise chained from this promise. There are special semantics for `.finally()` in that the final value cannot be modified from the handler.
