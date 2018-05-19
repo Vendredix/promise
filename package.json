@@ -1,6 +1,6 @@
 {
   "name": "@vendredix/promise",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0",
   "description": "Native promise extensions",
   "main": "./index.js",
   "typings": "./typings.d.ts",
