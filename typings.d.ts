@@ -145,8 +145,6 @@ interface Promise<T> {
    */
   return(): Promise<void>;
   return<U>(value: U): Promise<U>;
-  thenReturn(): Promise<void>; // TODO: Remove
-  thenReturn<U>(value: U): Promise<U>; // TODO: Remove
 
   /**
    * Convenience method for:
