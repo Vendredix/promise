@@ -12,12 +12,6 @@ describe('promise-thens', function () {
       assert.strictEqual("test", await promise);
       assert.strictEqual("returned", await promise.return("returned"));
     });
-    it('should resolve with given value (with thenReturn)', async function () {
-      const promise = Promise.resolve("test");
-
-      assert.strictEqual(await promise, "test");
-      assert.strictEqual(await promise.thenReturn("returned"), "returned");
-    });
   });
 
   describe('#throw()', function () {
@@ -28,18 +22,6 @@ describe('promise-thens', function () {
       const throwErr = new Error("THROW_ERROR");
       try {
         await promise.throw(throwErr);
-        assert.notEqual(true, true, "promise should throw error");
-      } catch (err) {
-        assert.strictEqual(err, throwErr, "error should be equal");
-      }
-    });
-    it('should reject with given reason (with thenThrow)', async function () {
-      const promise = Promise.resolve("test");
-
-      assert.strictEqual("test", await promise);
-      const throwErr = new Error("THROW_ERROR");
-      try {
-        await promise.thenThrow(throwErr);
         assert.notEqual(true, true, "promise should throw error");
       } catch (err) {
         assert.strictEqual(err, throwErr, "error should be equal");
