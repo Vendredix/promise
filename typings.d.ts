@@ -34,7 +34,7 @@ interface PromiseConstructor {
   all<T1, T2>(values: [PromiseLike<T1> | T1, PromiseLike<T2> | T2]): Promise<[T1, T2]>;
   all<T1>(values: [PromiseLike<T1> | T1]): Promise<[T1]>;
   // array with values
-  all<R>(values: PromiseLike<Array<PromiseLike<R> | R>> | Array<PromiseLike<R> | R>): Promise<R[]>;
+  all<R>(values: PromiseLike<ArrayLike<PromiseLike<R> | R>> | ArrayLike<PromiseLike<R> | R>): Promise<R[]>;
 
   /**
    * Like ``Promise.all`` but for object properties instead of array items. Returns a promise that is fulfilled when all the properties of the object are fulfilled. The promise's fulfillment value is an object with fulfillment values at respective keys to the original object. If any promise in the object rejects, the returned promise is rejected with the rejection reason.
@@ -55,14 +55,14 @@ interface PromiseConstructor {
   /**
    * Like `Promise.some()`, with 1 as `count`. However, if the promise fulfills, the fulfillment value is not an array of 1 but the value directly.
    */
-  any<R>(values: PromiseLike<Array<PromiseLike<R> | R>> | Array<PromiseLike<R> | R>): Promise<R>;
+  any<R>(values: PromiseLike<ArrayLike<PromiseLike<R> | R>> | ArrayLike<PromiseLike<R> | R>): Promise<R>;
 
   /**
    * Given an array, or a promise of an array, which contains promises (or a mix of promises and values) return a promise that is fulfilled or rejected as soon as a promise in the array is fulfilled or rejected with the respective rejection reason or fulfillment value.
    *
    * **Note** If you pass empty array or a sparse array with no values, or a promise/thenable for such, it will be forever pending.
    */
-  // race<R>(values: PromiseLike<Array<PromiseLike<R> | R>> | Array<PromiseLike<R> | R>): Promise<R>;
+  // race<R>(values: PromiseLike<ArrayLike<PromiseLike<R> | R>> | ArrayLike<PromiseLike<R> | R>): Promise<R>;
 
   /**
    * Initiate a competetive race between multiple promises or values (values will become immediately fulfilled promises). When `count` amount of promises have been fulfilled, the returned promise is fulfilled with an array that contains the fulfillment values of the winners in order of resolution.
@@ -71,7 +71,7 @@ interface PromiseConstructor {
    *
    * *The original array is not modified.*
    */
-  some<R>(values: PromiseLike<Array<PromiseLike<R> | R>> | Array<PromiseLike<R> | R>, count: number): Promise<R[]>;
+  some<R>(values: PromiseLike<ArrayLike<PromiseLike<R> | R>> | ArrayLike<PromiseLike<R> | R>, count: number): Promise<R[]>;
 
   /**
    * Map an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `mapper` function with the signature `(item, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array. If any promise in the input array is rejected the returned promise is rejected as well.
@@ -80,7 +80,7 @@ interface PromiseConstructor {
    *
    * *The original array is not modified.*
    */
-  map<R, U>(values: PromiseLike<Array<PromiseLike<R> | R>> | Array<PromiseLike<R> | R>, mapper: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>): Promise<U[]>;
+  map<R, U>(values: PromiseLike<ArrayLike<PromiseLike<R> | R>> | ArrayLike<PromiseLike<R> | R>, mapper: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>): Promise<U[]>;
 
   /**
    * Reduce an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `reducer` function with the signature `(total, current, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array. If any promise in the input array is rejected the returned promise is rejected as well.
@@ -89,7 +89,7 @@ interface PromiseConstructor {
    *
    * *The original array is not modified. If no `intialValue` is given and the array doesn't contain at least 2 items, the callback will not be called and `undefined` is returned. If `initialValue` is given and the array doesn't have at least 1 item, `initialValue` is returned.*
    */
-  reduce<R, U>(values: PromiseLike<Array<PromiseLike<R> | R>> | Array<PromiseLike<R> | R>, reducer: (total: U, current: R, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U): Promise<U>;
+  reduce<R, U>(values: PromiseLike<ArrayLike<PromiseLike<R> | R>> | ArrayLike<PromiseLike<R> | R>, reducer: (total: U, current: R, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U): Promise<U>;
 
   /**
    * Filter an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `filterer` function with the signature `(item, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array. If any promise in the input array is rejected the returned promise is rejected as well.
@@ -98,14 +98,14 @@ interface PromiseConstructor {
    *
    * *The original array is not modified.
    */
-  filter<R>(values: PromiseLike<Array<PromiseLike<R> | R>> | Array<PromiseLike<R> | R>, filterer: (item: R, index: number, arrayLength: number) => boolean | PromiseLike<boolean>): Promise<R[]>;
+  filter<R>(values: PromiseLike<ArrayLike<PromiseLike<R> | R>> | ArrayLike<PromiseLike<R> | R>, filterer: (item: R, index: number, arrayLength: number) => boolean | PromiseLike<boolean>): Promise<R[]>;
 
   /**
    * Iterate over an array, or a promise of an array, which contains promises (or a mix of promises and values) with the given iterator function with the signature (item, index, value) where item is the resolved value of a respective promise in the input array. Iteration happens serially. If any promise in the input array is rejected the returned promise is rejected as well.
    *
    * Resolves to the original array unmodified, this method is meant to be used for side effects. If the iterator function returns a promise or a thenable, the result for the promise is awaited for before continuing with next iteration.
    */
-  each<R, U>(values: PromiseLike<Array<PromiseLike<R> | R>> | Array<PromiseLike<R> | R>, iterator: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>): Promise<R[]>;
+  each<R, U>(values: PromiseLike<ArrayLike<PromiseLike<R> | R>> | ArrayLike<PromiseLike<R> | R>, iterator: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>): Promise<R[]>;
 
   /**
    * Given an Iterable(arrays are Iterable), or a promise of an Iterable, which produces promises (or a mix of promises and values), iterate over all the values in the Iterable into an array and iterate over the array serially, in-order.
@@ -114,7 +114,7 @@ interface PromiseConstructor {
    *
    * If any promise in the input array is rejected or any promise returned by the iterator function is rejected, the result will be rejected as well.
    */
-  // mapSeries<R, U>(values: PromiseLike<Array<PromiseLike<R> | R>> | Array<PromiseLike<R> | R>, iterator: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>): Promise<U[]>;
+  // mapSeries<R, U>(values: PromiseLike<ArrayLike<PromiseLike<R> | R>> | ArrayLike<PromiseLike<R> | R>, iterator: (item: R, index: number, arrayLength: number) => U | PromiseLike<U>): Promise<U[]>;
 
 
   /**
@@ -124,7 +124,7 @@ interface PromiseConstructor {
    *
    * *The original array is not modified.
    */
-  every<R>(values: PromiseLike<Array<PromiseLike<R> | R>> | Array<PromiseLike<R> | R>, guard: (item: R, index: number, arrayLength: number) => boolean | PromiseLike<boolean>): Promise<boolean>;
+  every<R>(values: PromiseLike<ArrayLike<PromiseLike<R> | R>> | ArrayLike<PromiseLike<R> | R>, guard: (item: R, index: number, arrayLength: number) => boolean | PromiseLike<boolean>): Promise<boolean>;
 }
 
 
