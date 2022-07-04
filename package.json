@@ -26,6 +26,6 @@
   },
   "homepage": "https://github.com/Vendredix/promise#readme",
   "devDependencies": {
-    "mocha": "^4.0.1"
+    "mocha": "^10.0.0"
   }
 }
