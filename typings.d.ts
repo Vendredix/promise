@@ -89,7 +89,7 @@ interface PromiseConstructor {
    *
    * *The original array is not modified. If no `intialValue` is given and the array doesn't contain at least 2 items, the callback will not be called and `undefined` is returned. If `initialValue` is given and the array doesn't have at least 1 item, `initialValue` is returned.*
    */
-  reduce<R, U>(values: PromiseLike<ArrayLike<PromiseLike<R> | R>> | ArrayLike<PromiseLike<R> | R>, reducer: (total: U, current: R, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U): Promise<U>;
+  reduce<R, U>(values: PromiseLike<ArrayLike<PromiseLike<R> | R>> | ArrayLike<PromiseLike<R> | R>, reducer: (total: U, current: R, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U | PromiseLike<U>): Promise<U>;
 
   /**
    * Filter an array, or a promise of an array, which contains a promises (or a mix of promises and values) with the given `filterer` function with the signature `(item, index, arrayLength)` where `item` is the resolved value of a respective promise in the input array. If any promise in the input array is rejected the returned promise is rejected as well.
@@ -300,8 +300,8 @@ interface Promise<T> {
    * Same as calling `Promise.reduce(thisPromise, Function reducer, initialValue)`. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
    */
   // TODO type inference from array-resolving promise?
-  reduce<Q, U>(reducer: (memo: U, item: Q, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U): Promise<U>;
-  reduce<U>(reducer: (memo: U, item: U, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U): Promise<U>;
+  reduce<Q, U>(reducer: (memo: U, item: Q, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U | PromiseLike<U>): Promise<U>;
+  reduce<U>(reducer: (memo: U, item: U, index: number, arrayLength: number) => U | PromiseLike<U>, initialValue?: U | PromiseLike<U>): Promise<U>;
 
   /**
    * Same as calling ``Promise.filter(thisPromise, filterer)``. With the exception that if this promise is bound to a value, the returned promise is bound to that value too.
